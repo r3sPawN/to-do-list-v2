@@ -5,5 +5,14 @@
 
 .task {
   background-color: #E5F0FF;
-  border: 1px solid #dfe1e5
+  border: 1px solid #dfe1e5;
+  display: flex;
+  flex-direction: inherit;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.add-button {
+  margin-top: 5%; 
+  
 }

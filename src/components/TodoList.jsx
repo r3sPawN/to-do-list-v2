@@ -10,9 +10,10 @@ export class TodoList extends React.Component {
   }
 
   handleEdit = (id) => {
-    const task = this.state.tasks.find(task => task.id === id)
-    task.editable = false 
-    this.setState({ tasks: [...this.state.tasks, task] })
+    const {tasks} = this.state
+    const task = tasks.find(task => task.id === id)
+    const otherTasks = tasks.map(task => task.id === id ? {...task, editable: !task.editable } : task)
+    this.setState({ tasks: otherTasks })
   }
 
   handleAddTask = () => {
@@ -28,6 +29,13 @@ export class TodoList extends React.Component {
     this.setState({tasks: newList})
   }
 
+  handleOnChange = (event, id) => {
+    const {tasks} = this.state
+    const task = tasks.find(task => task.id === id)
+    const otherTasks = tasks.map(task => task.id === id ? {...task, name: event.target.value } : task)
+    this.setState({ tasks: otherTasks })
+  }
+
   render() {
     const { tasks } = this.state
 
@@ -35,12 +43,17 @@ export class TodoList extends React.Component {
       <div className="tasks-list">
         {tasks.map(task => (
                   <div key={task.id} className="task">
-                  <h1>{task.name}</h1>
+                  <input 
+                  type="text" 
+                  value={task.name} 
+                  disabled={!task.editable} 
+                  onChange={(event) => this.handleOnChange(event, task.id)}>
+                  </input>
                   <span onClick={() => this.handleDelete(task.id)}>delete</span>
                   <span onClick={() => this.handleEdit(task.id)}>edit</span>
                 </div>  
         ))}
-        <span onClick={this.handleAddTask}>Add new</span>
+        <span className="add-button" onClick={this.handleAddTask}>Add new</span>
       </div>
     )
   }

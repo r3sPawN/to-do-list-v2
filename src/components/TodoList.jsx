@@ -21,6 +21,12 @@ export class TodoList extends React.Component {
     tasks.push({id: taskCount + 1, name: '', editable: true})
     this.setState({tasks: tasks})
   }
+  
+  handleDelete = (id) => {
+    const {tasks} = this.state
+    const newList = tasks.filter(element => element.id !== id)
+    this.setState({tasks: newList})
+  }
 
   render() {
     const { tasks } = this.state

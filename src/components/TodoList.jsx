@@ -1,4 +1,5 @@
 import React from 'react';
+import './TodoList.css'
 
 export class TodoList extends React.Component {
   state = {
@@ -15,7 +16,10 @@ export class TodoList extends React.Component {
   }
 
   handleAddTask = () => {
-
+    const {tasks} = this.state
+    const taskCount = tasks.length
+    tasks.push({id: taskCount + 1, name: '', editable: true})
+    this.setState({tasks: tasks})
   }
 
   render() {
@@ -26,11 +30,10 @@ export class TodoList extends React.Component {
         {tasks.map(task => (
                   <div key={task.id} className="task">
                   <h1>{task.name}</h1>
-                  <span>delete</span>
+                  <span onClick={() => this.handleDelete(task.id)}>delete</span>
                   <span onClick={() => this.handleEdit(task.id)}>edit</span>
                 </div>  
         ))}
-
         <span onClick={this.handleAddTask}>Add new</span>
       </div>
     )

@@ -1,0 +1,9 @@
+.tasks-list {
+  display:flex;
+  flex-direction: column;
+}
+
+.task {
+  background-color: #E5F0FF;
+  border: 1px solid #dfe1e5
+}
